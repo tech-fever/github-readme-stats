@@ -1,14 +1,14 @@
-import {
-  renderError,
-  parseBoolean,
-  clampValue,
-  parseArray,
-  CONSTANTS,
-} from "../src/common/utils";
-import { isLocaleAvailable } from "../src/translations";
-import fetchWakatimeStats from "../src/fetchers/wakatime-fetcher";
-import wakatimeCard from "../src/cards/wakatime-card";
 import * as dotenv from "dotenv";
+import { renderWakatimeCard } from "../src/cards/wakatime-card.js";
+import {
+  clampValue,
+  CONSTANTS,
+  parseArray,
+  parseBoolean,
+  renderError,
+} from "../src/common/utils.js";
+import { fetchWakatimeStats } from "../src/fetchers/wakatime-fetcher.js";
+import { isLocaleAvailable } from "../src/translations.js";
 
 dotenv.config();
 
@@ -58,7 +58,7 @@ export default async (req, res) => {
     res.setHeader("Cache-Control", `public, max-age=${cacheSeconds}`);
 
     return res.send(
-      wakatimeCard(stats, {
+      renderWakatimeCard(stats, {
         custom_title,
         hide_title: parseBoolean(hide_title),
         hide_border: parseBoolean(hide_border),
